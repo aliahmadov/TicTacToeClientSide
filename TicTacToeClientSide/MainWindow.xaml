@@ -10,7 +10,7 @@
         <StackPanel>
             <TextBlock FontSize="30" Name="player" ></TextBlock>
             <Button Name="Connect" Click="Button_Click" FontSize="30" >Connect To Server</Button>
-            <WrapPanel Width="350" HorizontalAlignment="Center" Orientation="Horizontal" >
+            <WrapPanel Name="myWrap" Width="350" HorizontalAlignment="Center" Orientation="Horizontal" >
                 <Button Click="b1_Click" Name="b1" FontSize="40" Margin="5" Height="100"
                         Width="100"
                         >1</Button>

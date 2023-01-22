@@ -57,7 +57,7 @@ namespace TicTacToeClientSide
             string text = Encoding.ASCII.GetString(data);
             IntegrateToView(text);
         }
-
+        public bool HasSecondPlayerStart { get; set; } = false;
         private void IntegrateToView(string text)
         {
             App.Current.Dispatcher.Invoke(() =>
@@ -78,6 +78,7 @@ namespace TicTacToeClientSide
                 b7.Content = row3[0];
                 b8.Content = row3[1];
                 b9.Content = row3[2];
+               // EnabledAllButtons(true);
             });
         }
 
@@ -109,7 +110,6 @@ namespace TicTacToeClientSide
             this.player.Text = this.Title;
 
         }
-
         private void b1_Click(object sender, RoutedEventArgs e)
         {
             Task.Run(() =>
@@ -119,8 +119,21 @@ namespace TicTacToeClientSide
                     var bt = sender as Button;
                     string request = bt.Content.ToString() + player.Text.Split(' ')[2];
                     SendString(request);
+                    
+                       // EnabledAllButtons(false);
                 });
             });
+        }
+
+        public void EnabledAllButtons(bool enabled)
+        {
+            foreach (var item in myWrap.Children)
+            {
+                if(item is Button bt)
+                {
+                    bt.IsEnabled = enabled;
+                }
+            }
         }
 
         private void SendString(string request)
