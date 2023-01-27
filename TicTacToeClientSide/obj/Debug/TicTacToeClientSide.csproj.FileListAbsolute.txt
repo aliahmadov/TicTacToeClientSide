@@ -86,3 +86,5 @@ C:\Users\eliah\Source\Repos\TicTacToeClientSides\TicTacToeClientSide\obj\Debug\T
 C:\Users\eliah\Source\Repos\TicTacToeClientSides\TicTacToeClientSide\obj\Debug\TicTacToeClientSide.csproj.CopyComplete
 C:\Users\eliah\Source\Repos\TicTacToeClientSides\TicTacToeClientSide\obj\Debug\TicTacToeClientSide.exe
 C:\Users\eliah\Source\Repos\TicTacToeClientSides\TicTacToeClientSide\obj\Debug\TicTacToeClientSide.pdb
+C:\Users\eliah\Source\Repos\TicTacToeClientSides\TicTacToeClientSide\bin\Debug\Newtonsoft.Json.dll
+C:\Users\eliah\Source\Repos\TicTacToeClientSides\TicTacToeClientSide\bin\Debug\Newtonsoft.Json.xml

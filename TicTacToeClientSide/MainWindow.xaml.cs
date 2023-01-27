@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -27,10 +28,14 @@ namespace TicTacToeClientSide
         private static readonly Socket ClientSocket = new Socket(AddressFamily.InterNetwork,
             SocketType.Stream, ProtocolType.Tcp);
         private const int port = 27001;
+
+        public ClientItem ClientItem { get; set; }
         public MainWindow()
         {
             InitializeComponent();
             EnableAllButtons(false);
+            ConnectBtn.IsEnabled = false;
+            ClientItem = new ClientItem();
         }
 
         public System.Windows.Controls.Image CapturedImage { get; set; }
@@ -110,6 +115,9 @@ namespace TicTacToeClientSide
 
             MessageBox.Show("Connected");
 
+
+            SendImageBytes(ClientItem);
+
             var buffer = new byte[2048];
             int received = ClientSocket.Receive(buffer, SocketFlags.None);
             if (received == 0) return;
@@ -130,7 +138,7 @@ namespace TicTacToeClientSide
                 IsTurn = false;
                 EnableAllButtons(IsTurn);
             }
-
+            ConnectBtn.IsEnabled = false;
         }
         private void b1_Click(object sender, RoutedEventArgs e)
         {
@@ -192,8 +200,11 @@ namespace TicTacToeClientSide
 
 
 
-        private void SendImageSource(ImageSource source)
+        private void SendImageBytes(ClientItem clientItem)
         {
+            var jsonString = JsonConvert.SerializeObject(clientItem);
+            var bytes = Encoding.ASCII.GetBytes(jsonString);
+            ClientSocket.Send(bytes);
 
         }
 
@@ -201,15 +212,19 @@ namespace TicTacToeClientSide
         {
             var window = new TakePictureWindow();
             window.ShowDialog();
-            CapturedImage = window.picturePreview;
-
-            string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            var path = $@"{desktop}/pic.jpeg";
-            SaveImageToJPEG(CapturedImage, path);
-            var bitmap = new Bitmap(path);
-            var image = (System.Drawing.Image)bitmap;
-            var imageByteArray = ImageToByteArray(image);
-            
+            CapturedImage = window.captureImage;
+            if (CapturedImage.Source != null)
+            {
+                string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                var path = $@"{desktop}/pic.jpeg";
+                SaveImageToJPEG(CapturedImage, path);
+                var bitmap = new Bitmap(path);
+                var image = (System.Drawing.Image)bitmap;
+                var imageByteArray = ImageToByteArray(image);
+                ClientItem.ImageBytes = imageByteArray;
+                ClientItem.Name = window.nameTxtBox.Text;
+                ConnectBtn.IsEnabled = true;
+            }
         }
     }
 }
