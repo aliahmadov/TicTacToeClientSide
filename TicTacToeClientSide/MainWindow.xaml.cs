@@ -28,6 +28,7 @@ namespace TicTacToeClientSide
         public MainWindow()
         {
             InitializeComponent();
+            EnableAllButtons(false);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -47,14 +48,6 @@ namespace TicTacToeClientSide
             });
         }
 
-        public List<char> CopyText { get; set; }
-
-        public int X_Count { get; set; }
-
-        public int O_Count { get; set; }
-
-        public string Player { get; set; }
-
         public bool IsTurn { get; set; }
 
         private void ReceiveResponse()
@@ -67,21 +60,10 @@ namespace TicTacToeClientSide
             string text = Encoding.ASCII.GetString(data);
             IntegrateToView(text);
         }
-        public bool HasSecondPlayerStart { get; set; } = false;
 
-        public bool IsFirst { get; set; }
         private void IntegrateToView(string text)
         {
-            X_Count = text.ToList().Count(c => c == 'X');
-            O_Count = text.ToList().Count(c => c == 'O');
-            //if(X_Count==1 || O_Count==1)
-            //{
-            //    IsFirst = true;
-            //}
-            //else
-            //{
-            //    IsFirst = false;
-            //}
+         
             App.Current.Dispatcher.Invoke(() =>
             {
                 var data = text.Split('\n');
@@ -102,13 +84,7 @@ namespace TicTacToeClientSide
                 b9.Content = row3[2];
 
 
-
-
                 IsTurn = !IsTurn;
-
-
-
-
 
                 EnableAllButtons(IsTurn);
             });
@@ -161,9 +137,7 @@ namespace TicTacToeClientSide
                 {
                     var bt = sender as Button;
                     string request = bt.Content.ToString() + player.Text.Split(' ')[2];
-                    SendString(request);
-
-                    // EnabledAllButtons(false);
+                    SendString(request);             
                 });
             });
         }
@@ -183,6 +157,12 @@ namespace TicTacToeClientSide
         {
             byte[] buffer = Encoding.ASCII.GetBytes(request);
             ClientSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
+        }
+
+        private void TakePicBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new TakePictureWindow();
+            window.ShowDialog();
         }
     }
 }

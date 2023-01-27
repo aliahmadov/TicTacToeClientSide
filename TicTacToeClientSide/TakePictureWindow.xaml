@@ -1,0 +1,102 @@
+﻿<Window x:Class="TicTacToeClientSide.TakePictureWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TicTacToeClientSide"
+        mc:Ignorable="d"
+        Title="TakePictureWindow" Height="450" Width="800" Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Web Camera" FontSize="35" FontWeight="Bold" Foreground="OrangeRed">
+
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid>
+                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
+                    <TextBlock Text="Camera" FontSize="20" FontWeight="Bold" Margin="0,10,0,0">
+
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Margin="5,0,5,0" VerticalAlignment="Center" Name="cameraPanel">
+                    <Border BorderBrush="Black" BorderThickness="1">
+                        <Image Name="picturePreview" Height="250" Stretch="Uniform">
+
+                        </Image>
+                    </Border>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="1">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button Content="Stream On/Off" Foreground="White" FontWeight="Bold"
+                            Background="Green" FontSize="20" Padding="10,5,10,5"
+                            Name="StreamBtn" Click="StreamBtn_Click">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5">
+                                    
+                                </Setter>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                    <Button Margin="0,10,0,0" Content="Capture" Foreground="White" FontWeight="Bold"
+                            Background="Orange" FontSize="20" Padding="10,5,10,5"
+                            Name="CaptureBtn" Click="CaptureBtn_Click">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5">
+
+                                </Setter>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                    <Button Margin="0,10,0,0" Content="Save" Foreground="White" FontWeight="Bold"
+                            Background="Purple" FontSize="20" Padding="10,5,10,5"
+                            Name="SaveBtn" Click="SaveBtn_Click">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5">
+
+                                </Setter>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Column="2">
+                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
+                    <TextBlock Text="Captured Picture" FontSize="20" FontWeight="Bold" Margin="0,10,0,0">
+
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Margin="5,0,5,0" VerticalAlignment="Center">
+                    <Border BorderBrush="Black" BorderThickness="1">
+                        <Image Height="250"
+                               x:Name="captureImage">
+
+                        </Image>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
