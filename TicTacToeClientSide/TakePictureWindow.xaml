@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TicTacToeClientSide"
         mc:Ignorable="d"
-        Title="TakePictureWindow" Height="450" Width="800" Closing="Window_Closing">
+        Title="TakePictureWindow" Height="515" Width="800" Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -21,80 +21,95 @@
         </Grid>
 
         <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
 
-            <Grid>
-                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
-                    <TextBlock Text="Camera" FontSize="20" FontWeight="Bold" Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
 
-                    </TextBlock>
-                </StackPanel>
+                <Grid>
+                    <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
+                        <TextBlock Text="Camera" FontSize="20" FontWeight="Bold" Margin="0,10,0,0">
 
-                <StackPanel Margin="5,0,5,0" VerticalAlignment="Center" Name="cameraPanel">
-                    <Border BorderBrush="Black" BorderThickness="1">
-                        <Image Name="picturePreview" Height="250" Stretch="Uniform">
+                        </TextBlock>
+                    </StackPanel>
 
-                        </Image>
-                    </Border>
-                </StackPanel>
-            </Grid>
-            <Grid Grid.Column="1">
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Button Content="Stream On/Off" Foreground="White" FontWeight="Bold"
+                    <StackPanel Margin="5,0,5,0" VerticalAlignment="Center" Name="cameraPanel">
+                        <Border BorderBrush="Black" BorderThickness="1">
+                            <Image Name="picturePreview" Height="250" Stretch="Uniform">
+
+                            </Image>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button Content="Stream On/Off" Foreground="White" FontWeight="Bold"
                             Background="Green" FontSize="20" Padding="10,5,10,5"
                             Name="StreamBtn" Click="StreamBtn_Click">
-                        <Button.Resources>
-                            <Style TargetType="{x:Type Border}">
-                                <Setter Property="CornerRadius" Value="5">
-                                    
-                                </Setter>
-                            </Style>
-                        </Button.Resources>
-                    </Button>
+                            <Button.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="5">
 
-                    <Button Margin="0,10,0,0" Content="Capture" Foreground="White" FontWeight="Bold"
+                                    </Setter>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+
+                        <Button Margin="0,10,0,0" Content="Capture" Foreground="White" FontWeight="Bold"
                             Background="Orange" FontSize="20" Padding="10,5,10,5"
                             Name="CaptureBtn" Click="CaptureBtn_Click">
-                        <Button.Resources>
-                            <Style TargetType="{x:Type Border}">
-                                <Setter Property="CornerRadius" Value="5">
+                            <Button.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="5">
 
-                                </Setter>
-                            </Style>
-                        </Button.Resources>
-                    </Button>
+                                    </Setter>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
 
-                    <Button Margin="0,10,0,0" Content="Save" Foreground="White" FontWeight="Bold"
+                        <Button Margin="0,10,0,0" Content="Save" Foreground="White" FontWeight="Bold"
                             Background="Purple" FontSize="20" Padding="10,5,10,5"
                             Name="SaveBtn" Click="SaveBtn_Click">
-                        <Button.Resources>
-                            <Style TargetType="{x:Type Border}">
-                                <Setter Property="CornerRadius" Value="5">
+                            <Button.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="5">
 
-                                </Setter>
-                            </Style>
-                        </Button.Resources>
-                    </Button>
-                </StackPanel>
-            </Grid>
+                                    </Setter>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </StackPanel>
+                </Grid>
 
-            <Grid Grid.Column="2">
-                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
-                    <TextBlock Text="Captured Picture" FontSize="20" FontWeight="Bold" Margin="0,10,0,0">
+                <Grid Grid.Column="2">
+                    <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
+                        <TextBlock Text="Captured Picture" FontSize="20" FontWeight="Bold" Margin="0,10,0,0">
 
-                    </TextBlock>
-                </StackPanel>
-                <StackPanel Margin="5,0,5,0" VerticalAlignment="Center">
-                    <Border BorderBrush="Black" BorderThickness="1">
-                        <Image Height="250"
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Margin="5,0,5,0" VerticalAlignment="Center">
+                        <Border BorderBrush="Black" BorderThickness="1">
+                            <Image Height="250"
                                x:Name="captureImage">
 
-                        </Image>
-                    </Border>
+                            </Image>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1">
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center" FontSize="20" FontWeight="Bold">Enter your name</TextBlock>
+                    <TextBox FontSize="20" Margin="0,5,0,0" Width="400">
+                        
+                    </TextBox>
                 </StackPanel>
             </Grid>
         </Grid>
