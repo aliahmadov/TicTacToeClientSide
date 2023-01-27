@@ -47,19 +47,41 @@ namespace TicTacToeClientSide
             });
         }
 
+        public List<char> CopyText { get; set; }
+
+        public int X_Count { get; set; }
+
+        public int O_Count { get; set; }
+
+        public string Player { get; set; }
+
+        public bool IsTurn { get; set; }
+
         private void ReceiveResponse()
         {
             var buffer = new byte[2048];
             int received = ClientSocket.Receive(buffer, SocketFlags.None);
             if (received == 0) return;
-            var data=new byte[received];
+            var data = new byte[received];
             Array.Copy(buffer, data, received);
             string text = Encoding.ASCII.GetString(data);
             IntegrateToView(text);
         }
         public bool HasSecondPlayerStart { get; set; } = false;
+
+        public bool IsFirst { get; set; }
         private void IntegrateToView(string text)
         {
+            X_Count = text.ToList().Count(c => c == 'X');
+            O_Count = text.ToList().Count(c => c == 'O');
+            //if(X_Count==1 || O_Count==1)
+            //{
+            //    IsFirst = true;
+            //}
+            //else
+            //{
+            //    IsFirst = false;
+            //}
             App.Current.Dispatcher.Invoke(() =>
             {
                 var data = text.Split('\n');
@@ -78,7 +100,17 @@ namespace TicTacToeClientSide
                 b7.Content = row3[0];
                 b8.Content = row3[1];
                 b9.Content = row3[2];
-               // EnabledAllButtons(true);
+
+
+
+
+                IsTurn = !IsTurn;
+
+
+
+
+
+                EnableAllButtons(IsTurn);
             });
         }
 
@@ -90,7 +122,7 @@ namespace TicTacToeClientSide
                 try
                 {
                     ++attempts;
-                    ClientSocket.Connect(IPAddress.Parse("10.2.13.15"), port);
+                    ClientSocket.Connect(IPAddress.Parse("192.168.1.73"), port);
                 }
                 catch (Exception)
                 {
@@ -109,6 +141,17 @@ namespace TicTacToeClientSide
             this.Title = "Player : " + text;
             this.player.Text = this.Title;
 
+            if (text == "X")
+            {
+                IsTurn = true;
+                EnableAllButtons(IsTurn);
+            }
+            else
+            {
+                IsTurn = false;
+                EnableAllButtons(IsTurn);
+            }
+
         }
         private void b1_Click(object sender, RoutedEventArgs e)
         {
@@ -119,17 +162,17 @@ namespace TicTacToeClientSide
                     var bt = sender as Button;
                     string request = bt.Content.ToString() + player.Text.Split(' ')[2];
                     SendString(request);
-                    
-                       // EnabledAllButtons(false);
+
+                    // EnabledAllButtons(false);
                 });
             });
         }
 
-        public void EnabledAllButtons(bool enabled)
+        public void EnableAllButtons(bool enabled)
         {
             foreach (var item in myWrap.Children)
             {
-                if(item is Button bt)
+                if (item is Button bt)
                 {
                     bt.IsEnabled = enabled;
                 }
@@ -138,7 +181,7 @@ namespace TicTacToeClientSide
 
         private void SendString(string request)
         {
-            byte[]buffer=Encoding.ASCII.GetBytes(request);
+            byte[] buffer = Encoding.ASCII.GetBytes(request);
             ClientSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
         }
     }

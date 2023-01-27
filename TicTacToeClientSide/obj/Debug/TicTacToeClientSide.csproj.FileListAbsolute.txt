@@ -1,0 +1,16 @@
+C:\Users\eliah\Source\Repos\TicTacToeClientSidea\TicTacToeClientSide\bin\Debug\TicTacToeClientSide.exe.config
+C:\Users\eliah\Source\Repos\TicTacToeClientSidea\TicTacToeClientSide\bin\Debug\TicTacToeClientSide.exe
+C:\Users\eliah\Source\Repos\TicTacToeClientSidea\TicTacToeClientSide\bin\Debug\TicTacToeClientSide.pdb
+C:\Users\eliah\Source\Repos\TicTacToeClientSidea\TicTacToeClientSide\obj\Debug\TicTacToeClientSide.csproj.AssemblyReference.cache
+C:\Users\eliah\Source\Repos\TicTacToeClientSidea\TicTacToeClientSide\obj\Debug\TicTacToeClientSide.csproj.SuggestedBindingRedirects.cache
+C:\Users\eliah\Source\Repos\TicTacToeClientSidea\TicTacToeClientSide\obj\Debug\MainWindow.g.cs
+C:\Users\eliah\Source\Repos\TicTacToeClientSidea\TicTacToeClientSide\obj\Debug\App.g.cs
+C:\Users\eliah\Source\Repos\TicTacToeClientSidea\TicTacToeClientSide\obj\Debug\TicTacToeClientSide_MarkupCompile.cache
+C:\Users\eliah\Source\Repos\TicTacToeClientSidea\TicTacToeClientSide\obj\Debug\TicTacToeClientSide_MarkupCompile.lref
+C:\Users\eliah\Source\Repos\TicTacToeClientSidea\TicTacToeClientSide\obj\Debug\MainWindow.baml
+C:\Users\eliah\Source\Repos\TicTacToeClientSidea\TicTacToeClientSide\obj\Debug\TicTacToeClientSide.g.resources
+C:\Users\eliah\Source\Repos\TicTacToeClientSidea\TicTacToeClientSide\obj\Debug\TicTacToeClientSide.Properties.Resources.resources
+C:\Users\eliah\Source\Repos\TicTacToeClientSidea\TicTacToeClientSide\obj\Debug\TicTacToeClientSide.csproj.GenerateResource.cache
+C:\Users\eliah\Source\Repos\TicTacToeClientSidea\TicTacToeClientSide\obj\Debug\TicTacToeClientSide.csproj.CoreCompileInputs.cache
+C:\Users\eliah\Source\Repos\TicTacToeClientSidea\TicTacToeClientSide\obj\Debug\TicTacToeClientSide.exe
+C:\Users\eliah\Source\Repos\TicTacToeClientSidea\TicTacToeClientSide\obj\Debug\TicTacToeClientSide.pdb
