@@ -54,6 +54,12 @@ namespace TicTacToeClientSide
             dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += DispatcherTimer_Tick;
             dispatcherTimer.Interval = TimeSpan.FromMilliseconds(10);
+
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void DispatcherTimer_Tick(object sender, EventArgs e)

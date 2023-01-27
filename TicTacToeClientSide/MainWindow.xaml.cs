@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -31,6 +33,7 @@ namespace TicTacToeClientSide
             EnableAllButtons(false);
         }
 
+        public System.Windows.Controls.Image CapturedImage { get; set; }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ConnectToServer();
@@ -63,7 +66,7 @@ namespace TicTacToeClientSide
 
         private void IntegrateToView(string text)
         {
-         
+
             App.Current.Dispatcher.Invoke(() =>
             {
                 var data = text.Split('\n');
@@ -137,7 +140,7 @@ namespace TicTacToeClientSide
                 {
                     var bt = sender as Button;
                     string request = bt.Content.ToString() + player.Text.Split(' ')[2];
-                    SendString(request);             
+                    SendString(request);
                 });
             });
         }
@@ -153,16 +156,60 @@ namespace TicTacToeClientSide
             }
         }
 
+
         private void SendString(string request)
         {
             byte[] buffer = Encoding.ASCII.GetBytes(request);
             ClientSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
         }
 
+
+
+        private void SaveImageToJPEG(System.Windows.Controls.Image ImageToSave, string Location)
+        {
+            RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)ImageToSave.Source.Width,
+                                                                           (int)ImageToSave.Source.Height,
+                                                                           245, 215, PixelFormats.Default);
+            renderTargetBitmap.Render(ImageToSave);
+            JpegBitmapEncoder jpegBitmapEncoder = new JpegBitmapEncoder();
+            jpegBitmapEncoder.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
+            using (FileStream fileStream = new FileStream(Location, FileMode.Create))
+            {
+                jpegBitmapEncoder.Save(fileStream);
+                fileStream.Flush();
+                fileStream.Close();
+            }
+        }
+
+        public byte[] ImageToByteArray(System.Drawing.Image imageIn)
+        {
+            using (var ms = new MemoryStream())
+            {
+                imageIn.Save(ms, imageIn.RawFormat);
+                return ms.ToArray();
+            }
+        }
+
+
+
+        private void SendImageSource(ImageSource source)
+        {
+
+        }
+
         private void TakePicBtn_Click(object sender, RoutedEventArgs e)
         {
             var window = new TakePictureWindow();
             window.ShowDialog();
+            CapturedImage = window.picturePreview;
+
+            string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            var path = $@"{desktop}/pic.jpeg";
+            SaveImageToJPEG(CapturedImage, path);
+            var bitmap = new Bitmap(path);
+            var image = (System.Drawing.Image)bitmap;
+            var imageByteArray = ImageToByteArray(image);
+            
         }
     }
 }
