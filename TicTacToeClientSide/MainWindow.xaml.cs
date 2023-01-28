@@ -36,9 +36,13 @@ namespace TicTacToeClientSide
             EnableAllButtons(false);
             ConnectBtn.IsEnabled = false;
             ClientItem = new ClientItem();
+            OpponentClientItem = new ClientItem();
+
         }
 
         public System.Windows.Controls.Image CapturedImage { get; set; }
+
+        public ClientItem OpponentClientItem { get; set; }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ConnectToServer();
@@ -60,13 +64,30 @@ namespace TicTacToeClientSide
 
         private void ReceiveResponse()
         {
-            var buffer = new byte[2048];
+            var buffer = new byte[1024 * 128];
             int received = ClientSocket.Receive(buffer, SocketFlags.None);
             if (received == 0) return;
             var data = new byte[received];
             Array.Copy(buffer, data, received);
             string text = Encoding.ASCII.GetString(data);
-            IntegrateToView(text);
+            try
+            {
+                var clientItem = JsonConvert.DeserializeObject<ClientItem>(text);
+                OpponentClientItem = clientItem;
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+
+                    this.opponentName.Text = OpponentClientItem.Name;
+                    this.opponentImage.Source = ByteToImage(OpponentClientItem.ImageBytes);
+                });
+
+
+            }
+            catch (Exception)
+            {
+
+                IntegrateToView(text);
+            }
         }
 
         private void IntegrateToView(string text)
@@ -132,11 +153,13 @@ namespace TicTacToeClientSide
             {
                 IsTurn = true;
                 EnableAllButtons(IsTurn);
+
             }
             else
             {
                 IsTurn = false;
                 EnableAllButtons(IsTurn);
+
             }
             ConnectBtn.IsEnabled = false;
         }
@@ -173,6 +196,19 @@ namespace TicTacToeClientSide
 
 
 
+        public static ImageSource ByteToImage(byte[] imageData)
+        {
+            BitmapImage biImg = new BitmapImage();
+            MemoryStream ms = new MemoryStream(imageData);
+            biImg.BeginInit();
+            biImg.StreamSource = ms;
+            biImg.EndInit();
+
+            ImageSource imgSrc = biImg as ImageSource;
+
+            return imgSrc;
+        }
+
         private void SaveImageToJPEG(System.Windows.Controls.Image ImageToSave, string Location)
         {
             RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)ImageToSave.Source.Width,
@@ -207,16 +243,17 @@ namespace TicTacToeClientSide
             ClientSocket.Send(bytes);
 
         }
-
+        public Guid ImageId { get; set; } = new Guid();
         private void TakePicBtn_Click(object sender, RoutedEventArgs e)
         {
+            ImageId = Guid.NewGuid();
             var window = new TakePictureWindow();
             window.ShowDialog();
             CapturedImage = window.captureImage;
+            string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            var path = $@"{desktop}/pic{ImageId}.jpeg";
             if (CapturedImage.Source != null)
             {
-                string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                var path = $@"{desktop}/pic.jpeg";
                 SaveImageToJPEG(CapturedImage, path);
                 var bitmap = new Bitmap(path);
                 var image = (System.Drawing.Image)bitmap;
@@ -224,7 +261,11 @@ namespace TicTacToeClientSide
                 ClientItem.ImageBytes = imageByteArray;
                 ClientItem.Name = window.nameTxtBox.Text;
                 ConnectBtn.IsEnabled = true;
+                this.myName.Text = ClientItem.Name;
+                this.myImage.Source = new BitmapImage(new Uri(path));
+
             }
+
         }
     }
 }

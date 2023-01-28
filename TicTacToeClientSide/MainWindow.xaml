@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TicTacToeClientSide"
         mc:Ignorable="d"
-        Title="MainWindow" Height="525" Width="800">
+        Title="MainWindow" Height="600" Width="800">
     <Grid>
         <StackPanel>
             <TextBlock FontSize="30" Name="player" ></TextBlock>
@@ -40,8 +40,27 @@
                         >9</Button>
             </WrapPanel>
             <Button Name="TakePicBtn" Click="TakePicBtn_Click" Margin="0,10,0,0" Content="Take Picture" FontSize="25">
-                
+
             </Button>
+            <StackPanel Margin="0,10,0,0" Height="110" Orientation="Horizontal">
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock x:Name="myName" FontSize="80" Margin="10,0,0,0">
+                    
+                    </TextBlock>
+                    <Image Margin="5,0,0,0" Width="150" Name="myImage">
+                        
+                    </Image>
+                </StackPanel>
+
+                <StackPanel Margin="275,0,0,0"  Orientation="Horizontal">
+                    <TextBlock FontSize="80" Name="opponentName">
+                      
+                    </TextBlock>
+                    <Image Margin="5,0,0,0" Width="150" Name="opponentImage">
+
+                    </Image>
+                </StackPanel>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>
