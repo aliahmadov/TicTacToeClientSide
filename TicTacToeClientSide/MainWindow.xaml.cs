@@ -127,7 +127,7 @@ namespace TicTacToeClientSide
                 try
                 {
                     ++attempts;
-                    ClientSocket.Connect(IPAddress.Parse("192.168.1.73"), port);
+                    ClientSocket.Connect(IPAddress.Parse("192.168.56.1"), port);
                 }
                 catch (Exception)
                 {
