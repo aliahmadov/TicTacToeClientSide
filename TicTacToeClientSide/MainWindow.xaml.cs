@@ -127,7 +127,7 @@ namespace TicTacToeClientSide
                 try
                 {
                     ++attempts;
-                    ClientSocket.Connect(IPAddress.Parse("192.168.56.1"), port);
+                    ClientSocket.Connect(IPAddress.Parse("192.168.1.73"), port);
                 }
                 catch (Exception)
                 {
@@ -244,6 +244,8 @@ namespace TicTacToeClientSide
 
         }
         public Guid ImageId { get; set; } = new Guid();
+
+        public string Path { get; set; }
         private void TakePicBtn_Click(object sender, RoutedEventArgs e)
         {
             ImageId = Guid.NewGuid();
@@ -252,6 +254,7 @@ namespace TicTacToeClientSide
             CapturedImage = window.captureImage;
             string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             var path = $@"{desktop}/pic{ImageId}.jpeg";
+            Path = path;
             if (CapturedImage.Source != null)
             {
                 SaveImageToJPEG(CapturedImage, path);
@@ -262,10 +265,11 @@ namespace TicTacToeClientSide
                 ClientItem.Name = window.nameTxtBox.Text;
                 ConnectBtn.IsEnabled = true;
                 this.myName.Text = ClientItem.Name;
-                this.myImage.Source = new BitmapImage(new Uri(path));
-
+                this.myImage.Source = ByteToImage(imageByteArray);
+               
             }
 
         }
+
     }
 }
