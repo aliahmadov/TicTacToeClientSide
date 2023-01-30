@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TicTacToeClientSide.Services;
 
 namespace TicTacToeClientSide
 {
@@ -127,7 +128,7 @@ namespace TicTacToeClientSide
                 try
                 {
                     ++attempts;
-                    ClientSocket.Connect(IPAddress.Parse("192.168.1.73"), port);
+                    ClientSocket.Connect(IPAddress.Parse(IPService.GetLocalIPAddress()), port);
                 }
                 catch (Exception)
                 {
